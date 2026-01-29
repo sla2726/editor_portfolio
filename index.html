@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio</title>
+    <title>Meu Portfólio - Vvoid</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* Background Effect */
         body::before {
             content: '';
             position: fixed;
@@ -61,7 +60,6 @@
             padding: 0 2rem;
         }
 
-        /* Header */
         header {
             padding: 4rem 0 6rem;
             text-align: center;
@@ -71,14 +69,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
@@ -91,6 +83,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+            letter-spacing: 0.05em;
         }
 
         /* Admin Access Button */
@@ -138,14 +137,6 @@
             fill: white;
         }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--color-text-muted);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
-
-        /* Navigation Tabs */
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -188,7 +179,14 @@
             box-shadow: 0 0 30px var(--color-accent-glow);
         }
 
-        /* Filter Pills */
+        .tab-btn.admin-btn {
+            display: none;
+        }
+
+        .tab-btn.admin-btn.unlocked {
+            display: inline-block;
+        }
+
         .filter-pills {
             display: flex;
             justify-content: center;
@@ -222,7 +220,6 @@
             border-color: var(--color-accent);
         }
 
-        /* Content Sections */
         .content-section {
             display: none;
             padding: 3rem 0;
@@ -234,17 +231,10 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Loading State */
         .loading {
             text-align: center;
             padding: 4rem 2rem;
@@ -265,7 +255,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -284,14 +273,8 @@
         }
 
         @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .video-card:hover {
@@ -362,13 +345,38 @@
             line-height: 1.6;
         }
 
-        /* Admin Panel */
         .admin-panel {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: 20px;
             padding: 2.5rem;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-banner {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .info-banner strong {
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .info-banner ol {
+            margin: 1rem 0 0 1.5rem;
+        }
+
+        .info-banner li {
+            margin-bottom: 0.5rem;
         }
 
         .form-group {
@@ -455,7 +463,11 @@
             background: #dc2626;
         }
 
-        /* Video List Admin */
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
         .video-list-admin {
             margin-top: 2rem;
         }
@@ -491,12 +503,6 @@
             gap: 0.5rem;
         }
 
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-        }
-
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -509,55 +515,15 @@
             color: var(--color-text);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-tabs {
-                gap: 0.5rem;
-            }
-
-            .tab-btn {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.85rem;
-            }
-
-            .video-item-admin {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
+        .error-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #ef4444;
         }
 
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            background: var(--color-accent);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            animation: slideInRight 0.3s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        .error-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         /* Login Modal */
@@ -598,10 +564,6 @@
             text-align: center;
         }
 
-        .login-form .form-group {
-            margin-bottom: 1.5rem;
-        }
-
         .error-message {
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid #ef4444;
@@ -624,26 +586,48 @@
             75% { transform: translateX(10px); }
         }
 
-        .tab-btn.admin-btn {
-            display: none;
-        }
-
-        .tab-btn.admin-btn.unlocked {
-            display: inline-block;
-        }
-
-        .info-banner {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: 12px;
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--color-accent);
+            color: white;
             padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--color-text-muted);
-            font-size: 0.9rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
         }
 
-        .info-banner strong {
-            color: var(--color-accent);
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .video-item-admin {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .nav-tabs {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -676,17 +660,30 @@
                 <p>Carregando vídeos...</p>
             </div>
 
+            <div id="errorState" class="error-state" style="display: none;">
+                <h3>⚠️ Erro ao carregar vídeos</h3>
+                <p>Não foi possível carregar o arquivo videos.json</p>
+                <p style="font-size: 0.9rem; margin-top: 1rem;">Certifique-se de que o arquivo existe no mesmo diretório</p>
+            </div>
+
             <div id="videoGrid" class="video-grid" style="display: none;"></div>
+            
             <div id="emptyState" class="empty-state" style="display: none;">
                 <h3>Nenhum vídeo encontrado</h3>
-                <p>Adicione seu primeiro vídeo na seção "Gerenciar Vídeos"</p>
+                <p>Use o painel admin para adicionar vídeos</p>
             </div>
         </section>
 
         <!-- Admin Section -->
         <section id="admin" class="content-section">
             <div class="info-banner">
-                <strong>🌐 Armazenamento Público:</strong> Todos os vídeos adicionados aqui são visíveis para qualquer pessoa que acessar este portfólio. Os dados são armazenados em um banco de dados compartilhado.
+                <strong>📝 Como funciona o painel admin:</strong>
+                <ol>
+                    <li>Adicione/edite/remova vídeos usando o formulário abaixo</li>
+                    <li>Clique em "Baixar videos.json Atualizado" para salvar as alterações</li>
+                    <li>Substitua o arquivo videos.json antigo pelo novo no servidor</li>
+                    <li>Atualize a página para ver as mudanças</li>
+                </ol>
             </div>
 
             <div class="admin-panel">
@@ -714,13 +711,21 @@
                         <label>Descrição</label>
                         <textarea id="videoDescription" placeholder="Descreva seu vídeo..."></textarea>
                     </div>
-                    <button type="submit" class="btn" id="submitBtn">Adicionar Vídeo</button>
+                    <button type="submit" class="btn">Adicionar Vídeo</button>
                 </form>
             </div>
 
             <div class="video-list-admin">
                 <h2 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 2rem;">Vídeos Cadastrados</h2>
                 <div id="videoListAdmin"></div>
+            </div>
+
+            <div class="admin-panel" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem; font-family: 'Playfair Display', serif;">Baixar JSON Atualizado</h3>
+                <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    Após fazer alterações, baixe o arquivo JSON atualizado e substitua o arquivo videos.json no seu servidor.
+                </p>
+                <button class="btn btn-secondary" onclick="downloadJSON()">💾 Baixar videos.json Atualizado</button>
             </div>
         </section>
     </div>
@@ -748,13 +753,16 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO - ALTERE A SENHA AQUI!
-        const ADMIN_PASSWORD = 'Avgp8Wx>:6y6N$';
-        
-        // Estado da aplicação
-        let isAdminAuthenticated = false;
+        // ========================================
+        // CONFIGURAÇÃO
+        // ========================================
+        const ADMIN_PASSWORD = 'Avgp8Wx>:6y6N$'; // ALTERE ESTA SENHA!
+        const JSON_FILE_PATH = './videos.json';
+        // ========================================
+
         let videos = [];
         let currentFilter = 'all';
+        let isAdminAuthenticated = false;
 
         // Verifica autenticação admin
         function checkAdminAuth() {
@@ -773,7 +781,7 @@
         }
 
         // Login form
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const password = document.getElementById('adminPassword').value;
             const errorMsg = document.getElementById('errorMessage');
@@ -792,8 +800,8 @@
                 document.querySelector('.admin-btn').classList.add('active');
                 document.getElementById('admin').classList.add('active');
                 
-                await renderAdminList();
-                showNotification('Acesso administrativo concedido!');
+                renderAdminList();
+                showNotification('✅ Acesso administrativo concedido!');
             } else {
                 errorMsg.classList.add('show');
                 document.getElementById('adminPassword').value = '';
@@ -801,7 +809,7 @@
             }
         });
 
-        // Intercepta clique no botão admin quando não autenticado
+        // Intercepta clique no botão admin
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('admin-btn') && !isAdminAuthenticated) {
                 e.preventDefault();
@@ -822,7 +830,7 @@
             }
         });
 
-        // Fecha modal ao clicar fora
+        // Fecha modal
         document.getElementById('loginModal').addEventListener('click', (e) => {
             if (e.target.id === 'loginModal') {
                 document.getElementById('loginModal').classList.add('hidden');
@@ -831,60 +839,29 @@
             }
         });
 
-        // ===== ARMAZENAMENTO COMPARTILHADO =====
-        
-        // Carrega vídeos do storage compartilhado
+        // Carrega vídeos do JSON
         async function loadVideos() {
             try {
-                const result = await window.storage.get('portfolio-videos', true);
-                if (result && result.value) {
-                    videos = JSON.parse(result.value);
-                } else {
-                    // Vídeos iniciais de exemplo
-                    videos = [
-                        {
-                            id: Date.now() + 1,
-                            title: "Introdução ao JavaScript Moderno",
-                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            category: "Tutorial",
-                            description: "Aprenda os fundamentos do JavaScript moderno com exemplos práticos."
-                        },
-                        {
-                            id: Date.now() + 2,
-                            title: "Meu Setup de Trabalho 2024",
-                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            category: "Vlog",
-                            description: "Tour completo pelo meu setup de trabalho e equipamentos."
-                        },
-                        {
-                            id: Date.now() + 3,
-                            title: "Review: Novo Framework CSS",
-                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            category: "Review",
-                            description: "Análise detalhada do novo framework que está revolucionando o CSS."
-                        }
-                    ];
-                    await saveVideos();
+                const response = await fetch(JSON_FILE_PATH);
+                
+                if (!response.ok) {
+                    throw new Error('Arquivo não encontrado');
                 }
+                
+                videos = await response.json();
+                
+                document.getElementById('loadingState').style.display = 'none';
+                renderVideos();
+                
             } catch (error) {
-                console.log('Primeira visita - criando dados iniciais');
-                videos = [];
+                console.error('Erro ao carregar JSON:', error);
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('errorState').style.display = 'block';
+                videos = []; // Array vazio para evitar erros
             }
         }
 
-        // Salva vídeos no storage compartilhado
-        async function saveVideos() {
-            try {
-                await window.storage.set('portfolio-videos', JSON.stringify(videos), true);
-                return true;
-            } catch (error) {
-                console.error('Erro ao salvar:', error);
-                showNotification('Erro ao salvar os dados. Tente novamente.');
-                return false;
-            }
-        }
-
-        // Converte URL do YouTube/Vimeo para embed
+        // Converte URL para embed
         function getEmbedUrl(url) {
             if (url.includes('youtube.com/watch')) {
                 const videoId = url.split('v=')[1]?.split('&')[0];
@@ -903,9 +880,6 @@
         function renderVideos() {
             const grid = document.getElementById('videoGrid');
             const emptyState = document.getElementById('emptyState');
-            const loadingState = document.getElementById('loadingState');
-            
-            loadingState.style.display = 'none';
             
             const filteredVideos = currentFilter === 'all' 
                 ? videos 
@@ -935,7 +909,7 @@
         }
 
         // Renderiza lista admin
-        async function renderAdminList() {
+        function renderAdminList() {
             const list = document.getElementById('videoListAdmin');
             
             if (videos.length === 0) {
@@ -949,7 +923,7 @@
                         <h3>${video.title}</h3>
                         <div class="video-item-meta">
                             <span>${video.category}</span> • 
-                            <span>${video.url}</span>
+                            <span>${video.url.substring(0, 50)}${video.url.length > 50 ? '...' : ''}</span>
                         </div>
                     </div>
                     <div class="video-item-actions">
@@ -960,12 +934,8 @@
         }
 
         // Adiciona novo vídeo
-        document.getElementById('addVideoForm').addEventListener('submit', async (e) => {
+        document.getElementById('addVideoForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Salvando...';
             
             const newVideo = {
                 id: Date.now(),
@@ -976,34 +946,39 @@
             };
 
             videos.push(newVideo);
-            const success = await saveVideos();
+            renderVideos();
+            renderAdminList();
+            e.target.reset();
             
-            if (success) {
-                renderVideos();
-                await renderAdminList();
-                e.target.reset();
-                showNotification('Vídeo adicionado com sucesso! 🎉');
-            }
-            
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Adicionar Vídeo';
+            showNotification('✅ Vídeo adicionado! Não esqueça de baixar o JSON atualizado.');
         });
 
         // Deleta vídeo
-        async function deleteVideo(id) {
-            if (confirm('Tem certeza que deseja excluir este vídeo? Esta ação afetará todos os visitantes.')) {
+        function deleteVideo(id) {
+            if (confirm('Tem certeza que deseja excluir este vídeo?')) {
                 videos = videos.filter(v => v.id !== id);
-                const success = await saveVideos();
-                
-                if (success) {
-                    renderVideos();
-                    await renderAdminList();
-                    showNotification('Vídeo excluído com sucesso!');
-                }
+                renderVideos();
+                renderAdminList();
+                showNotification('🗑️ Vídeo excluído! Não esqueça de baixar o JSON atualizado.');
             }
         }
-        // Torna deleteVideo global
         window.deleteVideo = deleteVideo;
+
+        // Baixa JSON atualizado
+        function downloadJSON() {
+            const jsonText = JSON.stringify(videos, null, 2);
+            const blob = new Blob([jsonText], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'videos.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('💾 JSON baixado com sucesso! Substitua o arquivo no servidor.');
+        }
+        window.downloadJSON = downloadJSON;
 
         // Mostra notificação
         function showNotification(message) {
@@ -1015,7 +990,7 @@
             setTimeout(() => {
                 notification.style.animation = 'slideInRight 0.3s ease-out reverse';
                 setTimeout(() => notification.remove(), 300);
-            }, 3000);
+            }, 4000);
         }
 
         // Troca de abas
@@ -1040,16 +1015,8 @@
         });
 
         // Inicialização
-        async function init() {
-            checkAdminAuth();
-            await loadVideos();
-            renderVideos();
-            if (isAdminAuthenticated) {
-                await renderAdminList();
-            }
-        }
-
-        init();
+        checkAdminAuth();
+        loadVideos();
     </script>
 </body>
 </html>
