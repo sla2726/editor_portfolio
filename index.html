@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-deep: #0f1419;
+            --color-surface: #1a1f29;
+            --color-elevated: #242b38;
+            --color-accent: #ff6b35;
+            --color-accent-glow: rgba(255, 107, 53, 0.3);
+            --color-text: #e8eaed;
+            --color-text-muted: #9ca3af;
+            --color-border: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--color-deep);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(107, 140, 255, 0.04) 0%, transparent 40%);
+            animation: backgroundFloat 30s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, -2%) rotate(1deg); }
+            66% { transform: translate(-2%, 2%) rotate(-1deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 6rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+            background: linear-gradient(180deg, var(--color-surface) 0%, transparent 100%);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        /* Admin Access Button */
+        .admin-access {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0.6;
+        }
+
+        .admin-access:hover {
+            opacity: 1;
+            background: var(--color-surface);
+            border-color: var(--color-accent);
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px var(--color-accent-glow);
+        }
+
+        .admin-access.unlocked {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            opacity: 1;
+        }
+
+        .admin-access svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-text-muted);
+            transition: fill 0.3s ease;
+        }
+
+        .admin-access:hover svg,
+        .admin-access.unlocked svg {
+            fill: white;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tab-btn {
+            padding: 0.875rem 2rem;
+            background: var(--color-elevated);
+            color: var(--color-text-muted);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .tab-btn:hover {
+            background: var(--color-surface);
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 30px var(--color-accent-glow);
+        }
+
+        /* Filter Pills */
+        .filter-pills {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.5s both;
+        }
+
+        .filter-pill {
+            padding: 0.5rem 1.25rem;
+            background: var(--color-surface);
+            color: var(--color-text-muted);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        .filter-pill.active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 3rem 0;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-text-muted);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: var(--color-surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            animation: scaleIn 0.5s ease-out backwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 220px;
+            background: var(--color-elevated);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumbnail iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-thumbnail::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-card:hover .video-thumbnail::after {
+            opacity: 0.9;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-category {
+            display: inline-block;
+            padding: 0.35rem 0.875rem;
+            background: var(--color-elevated);
+            color: var(--color-accent);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .video-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .video-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-size: 1rem;
+            font-family: 'Work Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px var(--color-accent-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            font-family: 'Work Sans', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: #ff8555;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--color-accent-glow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--color-elevated);
+            color: var(--color-text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-delete {
+            background: #ef4444;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+
+        /* Video List Admin */
+        .video-list-admin {
+            margin-top: 2rem;
+        }
+
+        .video-item-admin {
+            background: var(--color-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-item-admin:hover {
+            border-color: var(--color-accent);
+        }
+
+        .video-item-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .video-item-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .video-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .video-item-admin {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--color-accent);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .login-modal {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.4s ease-out;
+        }
+
+        .login-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .tab-btn.admin-btn {
+            display: none;
+        }
+
+        .tab-btn.admin-btn.unlocked {
+            display: inline-block;
+        }
+
+        .info-banner {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .info-banner strong {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Meu Portfólio - Vvoid</h1>
+            <p class="subtitle">Editor de vídeos</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="portfolio">Portfólio</button>
+            <button class="tab-btn admin-btn" data-tab="admin">Gerenciar Vídeos</button>
+        </nav>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="content-section active">
+            <div class="filter-pills">
+                <button class="filter-pill active" data-category="all">Todos</button>
+                <button class="filter-pill" data-category="Tutorial">Tutorial</button>
+                <button class="filter-pill" data-category="Vlog">Vlog</button>
+                <button class="filter-pill" data-category="Review">Review</button>
+                <button class="filter-pill" data-category="Gameplay">Gameplay</button>
+            </div>
+
+            <div id="loadingState" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Carregando vídeos...</p>
+            </div>
+
+            <div id="videoGrid" class="video-grid" style="display: none;"></div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <h3>Nenhum vídeo encontrado</h3>
+                <p>Adicione seu primeiro vídeo na seção "Gerenciar Vídeos"</p>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="content-section">
+            <div class="info-banner">
+                <strong>🌐 Armazenamento Público:</strong> Todos os vídeos adicionados aqui são visíveis para qualquer pessoa que acessar este portfólio. Os dados são armazenados em um banco de dados compartilhado.
+            </div>
+
+            <div class="admin-panel">
+                <h2 style="margin-bottom: 2rem; font-family: 'Playfair Display', serif; font-size: 2rem;">Adicionar Novo Vídeo</h2>
+                <form id="addVideoForm">
+                    <div class="form-group">
+                        <label>Título do Vídeo</label>
+                        <input type="text" id="videoTitle" required placeholder="Ex: Como criar um site incrível">
+                    </div>
+                    <div class="form-group">
+                        <label>URL do Vídeo (YouTube, Vimeo, etc)</label>
+                        <input type="url" id="videoUrl" required placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="videoCategory" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Vlog">Vlog</option>
+                            <option value="Review">Review</option>
+                            <option value="Gameplay">Gameplay</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea id="videoDescription" placeholder="Descreva seu vídeo..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">Adicionar Vídeo</button>
+                </form>
+            </div>
+
+            <div class="video-list-admin">
+                <h2 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 2rem;">Vídeos Cadastrados</h2>
+                <div id="videoListAdmin"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Admin Access Button -->
+    <div id="adminAccessBtn" class="admin-access" title="Acesso Administrativo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+        </svg>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="login-modal">
+            <h2>Acesso Administrativo</h2>
+            <div id="errorMessage" class="error-message">Senha incorreta. Tente novamente.</div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>Senha de Administrador</label>
+                    <input type="password" id="adminPassword" required placeholder="Digite a senha" autocomplete="off">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAÇÃO - ALTERE A SENHA AQUI!
+        const ADMIN_PASSWORD = 'Avgp8Wx>:6y6N$';
+        
+        // Estado da aplicação
+        let isAdminAuthenticated = false;
+        let videos = [];
+        let currentFilter = 'all';
+
+        // Verifica autenticação admin
+        function checkAdminAuth() {
+            const auth = sessionStorage.getItem('adminAuth');
+            if (auth === 'true') {
+                isAdminAuthenticated = true;
+                unlockAdmin();
+            }
+        }
+
+        // Desbloqueia painel admin
+        function unlockAdmin() {
+            document.querySelector('.admin-btn').classList.add('unlocked');
+            document.getElementById('adminAccessBtn').classList.add('unlocked');
+            document.getElementById('adminAccessBtn').title = 'Acesso Admin (Ativo)';
+        }
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            const errorMsg = document.getElementById('errorMessage');
+            
+            if (password === ADMIN_PASSWORD) {
+                isAdminAuthenticated = true;
+                sessionStorage.setItem('adminAuth', 'true');
+                unlockAdmin();
+                document.getElementById('loginModal').classList.add('hidden');
+                document.getElementById('adminPassword').value = '';
+                errorMsg.classList.remove('show');
+                
+                // Muda para aba admin
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.querySelector('.admin-btn').classList.add('active');
+                document.getElementById('admin').classList.add('active');
+                
+                await renderAdminList();
+                showNotification('Acesso administrativo concedido!');
+            } else {
+                errorMsg.classList.add('show');
+                document.getElementById('adminPassword').value = '';
+                setTimeout(() => errorMsg.classList.remove('show'), 3000);
+            }
+        });
+
+        // Intercepta clique no botão admin quando não autenticado
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('admin-btn') && !isAdminAuthenticated) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.getElementById('loginModal').classList.remove('hidden');
+            }
+        });
+
+        // Botão de acesso admin
+        document.getElementById('adminAccessBtn').addEventListener('click', () => {
+            if (!isAdminAuthenticated) {
+                document.getElementById('loginModal').classList.remove('hidden');
+            } else {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.querySelector('.admin-btn').classList.add('active');
+                document.getElementById('admin').classList.add('active');
+            }
+        });
+
+        // Fecha modal ao clicar fora
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                document.getElementById('loginModal').classList.add('hidden');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('errorMessage').classList.remove('show');
+            }
+        });
+
+        // ===== ARMAZENAMENTO COMPARTILHADO =====
+        
+        // Carrega vídeos do storage compartilhado
+        async function loadVideos() {
+            try {
+                const result = await window.storage.get('portfolio-videos', true);
+                if (result && result.value) {
+                    videos = JSON.parse(result.value);
+                } else {
+                    // Vídeos iniciais de exemplo
+                    videos = [
+                        {
+                            id: Date.now() + 1,
+                            title: "Introdução ao JavaScript Moderno",
+                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            category: "Tutorial",
+                            description: "Aprenda os fundamentos do JavaScript moderno com exemplos práticos."
+                        },
+                        {
+                            id: Date.now() + 2,
+                            title: "Meu Setup de Trabalho 2024",
+                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            category: "Vlog",
+                            description: "Tour completo pelo meu setup de trabalho e equipamentos."
+                        },
+                        {
+                            id: Date.now() + 3,
+                            title: "Review: Novo Framework CSS",
+                            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            category: "Review",
+                            description: "Análise detalhada do novo framework que está revolucionando o CSS."
+                        }
+                    ];
+                    await saveVideos();
+                }
+            } catch (error) {
+                console.log('Primeira visita - criando dados iniciais');
+                videos = [];
+            }
+        }
+
+        // Salva vídeos no storage compartilhado
+        async function saveVideos() {
+            try {
+                await window.storage.set('portfolio-videos', JSON.stringify(videos), true);
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                showNotification('Erro ao salvar os dados. Tente novamente.');
+                return false;
+            }
+        }
+
+        // Converte URL do YouTube/Vimeo para embed
+        function getEmbedUrl(url) {
+            if (url.includes('youtube.com/watch')) {
+                const videoId = url.split('v=')[1]?.split('&')[0];
+                return `https://www.youtube.com/embed/${videoId}`;
+            } else if (url.includes('youtu.be/')) {
+                const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                return `https://www.youtube.com/embed/${videoId}`;
+            } else if (url.includes('vimeo.com/')) {
+                const videoId = url.split('vimeo.com/')[1]?.split('?')[0];
+                return `https://player.vimeo.com/video/${videoId}`;
+            }
+            return url;
+        }
+
+        // Renderiza grid de vídeos
+        function renderVideos() {
+            const grid = document.getElementById('videoGrid');
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            
+            loadingState.style.display = 'none';
+            
+            const filteredVideos = currentFilter === 'all' 
+                ? videos 
+                : videos.filter(v => v.category === currentFilter);
+
+            if (filteredVideos.length === 0) {
+                grid.style.display = 'none';
+                grid.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            grid.style.display = 'grid';
+            grid.innerHTML = filteredVideos.map((video, index) => `
+                <div class="video-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="video-thumbnail">
+                        <iframe src="${getEmbedUrl(video.url)}" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-category">${video.category}</span>
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-description">${video.description || ''}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Renderiza lista admin
+        async function renderAdminList() {
+            const list = document.getElementById('videoListAdmin');
+            
+            if (videos.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p>Nenhum vídeo cadastrado ainda.</p></div>';
+                return;
+            }
+
+            list.innerHTML = videos.map(video => `
+                <div class="video-item-admin">
+                    <div class="video-item-info">
+                        <h3>${video.title}</h3>
+                        <div class="video-item-meta">
+                            <span>${video.category}</span> • 
+                            <span>${video.url}</span>
+                        </div>
+                    </div>
+                    <div class="video-item-actions">
+                        <button class="btn btn-delete btn-small" onclick="deleteVideo(${video.id})">Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Adiciona novo vídeo
+        document.getElementById('addVideoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Salvando...';
+            
+            const newVideo = {
+                id: Date.now(),
+                title: document.getElementById('videoTitle').value,
+                url: document.getElementById('videoUrl').value,
+                category: document.getElementById('videoCategory').value,
+                description: document.getElementById('videoDescription').value
+            };
+
+            videos.push(newVideo);
+            const success = await saveVideos();
+            
+            if (success) {
+                renderVideos();
+                await renderAdminList();
+                e.target.reset();
+                showNotification('Vídeo adicionado com sucesso! 🎉');
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Adicionar Vídeo';
+        });
+
+        // Deleta vídeo
+        async function deleteVideo(id) {
+            if (confirm('Tem certeza que deseja excluir este vídeo? Esta ação afetará todos os visitantes.')) {
+                videos = videos.filter(v => v.id !== id);
+                const success = await saveVideos();
+                
+                if (success) {
+                    renderVideos();
+                    await renderAdminList();
+                    showNotification('Vídeo excluído com sucesso!');
+                }
+            }
+        }
+        // Torna deleteVideo global
+        window.deleteVideo = deleteVideo;
+
+        // Mostra notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Troca de abas
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Filtros de categoria
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentFilter = pill.dataset.category;
+                renderVideos();
+            });
+        });
+
+        // Inicialização
+        async function init() {
+            checkAdminAuth();
+            await loadVideos();
+            renderVideos();
+            if (isAdminAuthenticated) {
+                await renderAdminList();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
